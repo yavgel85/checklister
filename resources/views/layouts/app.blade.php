@@ -51,7 +51,7 @@
                                                       role="button" aria-haspopup="true" aria-expanded="false">
                     <div class="c-avatar">
                         @if ( auth()->user()->email === 'eugene.yavgel@gmail.com' )
-                            <img class="c-avatar-img" src="img/avatars/1.png" alt="eugene.yavgel@gmail.com">
+                            <img class="c-avatar-img" src="img/avatars/yavgel.png" alt="eugene.yavgel@gmail.com">
                         @else
                             <img class="c-avatar-img" src="img/avatars/user.png" alt="user@email.com">
                         @endif
