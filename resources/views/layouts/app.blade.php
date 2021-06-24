@@ -15,11 +15,12 @@
 
     <title>{{ config('app.name', 'Laravel') }}</title>
 
-    <style>
+    {{--<style>
         img {
             max-width: 100%;
         }
-    </style>
+    </style>--}}
+    @livewireStyles
 </head>
 <body class="c-app">
 @include('partials.sidebar')
@@ -119,8 +120,6 @@
     </div>
 </div>
 
-
-    <!-- Optional JavaScript -->
     <!-- Popper.js first, then CoreUI JS -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"
             integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
@@ -129,5 +128,9 @@
             crossorigin="anonymous"></script>
     <script src="https://unpkg.com/@popperjs/core@2"></script>
     <script src="https://unpkg.com/@coreui/coreui/dist/js/coreui.min.js"></script>
+
+    <!-- Livewire -->
+    @livewireScripts
+    <script src="https://cdn.jsdelivr.net/gh/livewire/sortable@v0.x.x/dist/livewire-sortable.js"></script>
 </body>
 </html>
