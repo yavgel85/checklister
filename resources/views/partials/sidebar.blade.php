@@ -10,16 +10,6 @@
         </li>
 
         @if ( auth()->user()->is_admin )
-            <li class="c-sidebar-nav-title">{{ __('Admin') }}</li>
-            <li class="c-sidebar-nav-item c-sidebar-nav-dropdown">
-                <a class="c-sidebar-nav-link"
-                   href="{{ route('admin.pages.index') }}">
-                    <svg class="c-sidebar-nav-icon">
-                        <use xlink:href="{{ asset('/vendors/@coreui/icons/svg/free.svg#cil-puzzle') }}"></use>
-                    </svg> {{ __('Pages') }}
-                </a>
-            </li>
-
             <li class="c-sidebar-nav-title">{{ __('Manage Checklists') }}</li>
             @foreach (\App\Models\ChecklistGroup::with('checklists')->get() as $group)
                 <li class="c-sidebar-nav-item c-sidebar-nav-dropdown c-show">
@@ -53,24 +43,20 @@
                     {{ __('New checklist group') }}
                 </a>
             </li>
-        @endif
-
-        <li class="c-sidebar-nav-item c-sidebar-nav-dropdown">
-            <a class="c-sidebar-nav-link c-sidebar-nav-dropdown-toggle" href="#">
-                <svg class="c-sidebar-nav-icon">
-                    <use xlink:href="{{ asset('/vendors/@coreui/icons/svg/free.svg#cil-puzzle') }}"></use>
-                </svg>
-                Base
-            </a>
-            <ul class="c-sidebar-nav-dropdown-items">
-                <li class="c-sidebar-nav-item">
-                    <a class="c-sidebar-nav-link" href="base/breadcrumb.html">
-                        <span class="c-sidebar-nav-icon"></span>
-                        Breadcrumb
+            <li class="c-sidebar-nav-title">{{ __('Pages') }}</li>
+            @foreach (\App\Models\Page::all() as $page)
+                <li class="c-sidebar-nav-item c-sidebar-nav-dropdown">
+                    <a class="c-sidebar-nav-link"
+                       href="{{ route('admin.pages.edit', $page) }}">
+                        <svg class="c-sidebar-nav-icon">
+                            <use xlink:href="{{ asset('vendors/@coreui/icons/svg/free.svg#cil-puzzle') }}"></use>
+                        </svg> {{ $page->title }}
                     </a>
                 </li>
-            </ul>
-        </li>
+            @endforeach
+        @endif
+
+        <li class="c-sidebar-nav-title">{{ __('Other') }}</li>
         <li class="c-sidebar-nav-item">
             <a class="c-sidebar-nav-link" href="{{ route('logout') }}"
                onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
