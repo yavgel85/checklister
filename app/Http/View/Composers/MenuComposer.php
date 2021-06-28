@@ -2,6 +2,7 @@
 
 namespace App\Http\View\Composers;
 
+use App\Models\ChecklistGroup;
 use Carbon\Carbon;
 use Illuminate\View\View;
 
@@ -11,12 +12,12 @@ class MenuComposer
     /**
      * Bind data to the view.
      *
-     * @param \Illuminate\View\View $view
+     * @param View $view
      * @return void
      */
-    public function compose(View $view)
+    public function compose(View $view): void
     {
-        $menu = \App\Models\ChecklistGroup::with([
+        $menu = ChecklistGroup::with([
             'checklists' => function ($query) {
                 $query->whereNull('user_id');
             }])
@@ -32,11 +33,11 @@ class MenuComposer
 
         foreach ($menu as $group) {
             $group['is_new'] = Carbon::create($group['created_at'])->greaterThan($last_action_at);
-            $group['is_updated'] = !($group['is_new']) && Carbon::create($group['updated_at'])->greaterThan($last_action_at);;
+            $group['is_updated'] = !($group['is_new']) && Carbon::create($group['updated_at'])->greaterThan($last_action_at);
 
             foreach ($group['checklists'] as &$checklist) {
                 $checklist['is_new'] = !($group['is_new']) && Carbon::create($checklist['created_at'])->greaterThan($last_action_at);
-                $checklist['is_updated'] = !($group['is_updated']) && !($checklist['is_new']) && Carbon::create($checklist['updated_at'])->greaterThan($last_action_at);;
+                $checklist['is_updated'] = !($group['is_updated']) && !($checklist['is_new']) && Carbon::create($checklist['updated_at'])->greaterThan($last_action_at);
                 $checklist['tasks'] = 1;
                 $checklist['completed_tasks'] = 0;
             }
